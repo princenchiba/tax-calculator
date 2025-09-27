@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UK Tax Deduction Calculator
 
-## Getting Started
+A responsive web application that calculates take-home pay after Income Tax and National Insurance deductions using official HMRC 2025/26 rates, with search queries stored in Supabase for analytics. 
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit the live application: [https://main.dduqo6mwyfoyl.amplifyapp.com/](https://main.dduqo6mwyfoyl.amplifyapp.com/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+ 
+- npm 
+- Supabase account
+- Git
 
-## Learn More
+### Set Up
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/princenchiba/tax-calculator.git
+   cd tax-calculator
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install dependencies**
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Supabase Setup**
+- a. Create a new Supabase project
+- b. Create a table named `tax_calculations` with the schema below:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```sql
+   CREATE TABLE tax_calculations (
+     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+     job_title TEXT NOT NULL,
+     county TEXT NOT NULL,
+     salary_input NUMERIC NOT NULL,
+     salary_period TEXT NOT NULL,
+     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+   );
+  ```
+
+4. **Set up environment variables**
+   
+   Create a `.env.local` file in the root directory and copy the supabase project URL and anon key to it as shown below:
+
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+5. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **View App in browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+
+
+
+
