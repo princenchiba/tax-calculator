@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Tax Calculator",
-  description: "UK Tax Calculator",
+  title: "Tax Calculator - API",
+  description: "UK Tax Calculator - API",
 };
 
 export default function RootLayout({ children }) {
