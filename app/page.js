@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '../utils/supabaseClient';
 
 // HMRC Tax Constants for 2025/26
 const TAX_CONSTANTS = {
@@ -149,18 +148,31 @@ export default function Home() {
       // Calculate tax deductions
       const calculations = calculateDeductions(annualSalary);
 
-      // Save to Supabase
-      const { error: supabaseError } = await supabase
-        .from('tax_calculations')
-        .insert({
-          job_title: formData.jobTitle,
-          county: formData.county,
-          salary_input: salary,
-          salary_period: formData.period
+      // Save to database via API route
+      try {
+        const response = await fetch('/api/tax-calculations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            job_title: formData.jobTitle,
+            county: formData.county,
+            salary_input: salary,
+            salary_period: formData.period
+          }),
         });
 
-      if (supabaseError) {
-        console.error('Error saving to database:', supabaseError);
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Error saving to database:', errorData);
+          // Continue anyway - don't block user from seeing results
+        } else {
+          const result = await response.json();
+          console.log('Successfully saved calculation:', result.message);
+        }
+      } catch (fetchError) {
+        console.error('Network error saving to database:', fetchError);
         // Continue anyway - don't block user from seeing results
       }
 
