@@ -213,7 +213,7 @@ export default function Home() {
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            UK Tax Deduction Calculator - Server Resolve
+            Job Title Finder - Server Resolve
           </h1>
           <p className="text-lg text-gray-600">
             Calculate your take-home pay after Income Tax and National Insurance deductions
